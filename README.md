@@ -63,13 +63,13 @@ This system allows two players to:
 
 Register a username.
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   { "username": "luke" }   `
+`   { "username": "luke" }   `
 
 ### **POST /login**
 
 Login using username.
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   { "username": "luke" }   `
+`   { "username": "luke" }   `
 
 ### **GET /users**
 
@@ -82,7 +82,7 @@ List all registered users.
 
 ### **POST /create\_room**
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   {    "room_id": "01",    "host_player": "luke"  }   `
+`   {    "room_id": "01",    "host_player": "luke"  }   `
 
 ### **POST /join\_room**
 
@@ -98,7 +98,7 @@ Triggers game creation.
 
 Room Service → Game Service:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   POST http://localhost:8002/game/create   `
+`   POST http://localhost:8002/game/create   `
 
 **Game Rules Service**
 ----------------------
@@ -118,21 +118,21 @@ Required for CLI service health-check.
 
 ### **Connect:**
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   ws://localhost:8002/ws/{room_id}?player={username}   `
+`   ws://localhost:8002/ws/{room_id}?player={username}   `
 
 **Client → Server**
 -------------------
 
 ### **Make a move**
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   {    "action": "move",    "player_name": "luke",    "row": 3,    "col": 5,    "room_id": "01"  }   `
+`   {    "action": "move",    "player_name": "luke",    "row": 3,    "col": 5,    "room_id": "01"  }   `
 
 **Server → Client Events**
 --------------------------
 
 ### **connected**
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   {    "event": "connected",    "game_id": "01",    "current_turn": "luke",    "boards": { "self": [...], "opponent": [...] }  }   `
+`   {    "event": "connected",    "game_id": "01",    "current_turn": "luke",    "boards": { "self": [...], "opponent": [...] }  }   `
 
 ### **game\_created**
 
@@ -140,7 +140,7 @@ Sent when game starts.
 
 ### **move\_made**
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   {    "event": "move_made",    "by": "luke",    "row": 3,    "col": 5,    "result": "hit",    "current_turn": "bob",    "winner": null,    "boards": { "self": [...], "opponent": [...] }  }   `
+`   {    "event": "move_made",    "by": "luke",    "row": 3,    "col": 5,    "result": "hit",    "current_turn": "bob",    "winner": null,    "boards": { "self": [...], "opponent": [...] }  }   `
 
 ### **winner**
 
@@ -151,7 +151,7 @@ Winner field appears when game ends.
 
 Room Service → Game Rules Service:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   POST http://localhost:8002/game/create   `
+`   POST http://localhost:8002/game/create   `
 
 This satisfies the requirement for **microservice interaction via REST**.
 
@@ -163,25 +163,25 @@ This satisfies the requirement for **microservice interaction via REST**.
 
 ### **Terminal 1 — User Service**
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   uvicorn app.user.user_service:app --reload --port 8001   `
+`   uvicorn app.user.user_service:app --reload --port 8001   `
 
 ### **Terminal 2 — Room Service**
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   uvicorn app.room.room_service:app --reload --port 8003   `
+`   uvicorn app.room.room_service:app --reload --port 8003   `
 
 ### **Terminal 3 — Game Rules Service**
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   uvicorn app.game.services.game_service:app --reload --port 8002   `
+`   uvicorn app.game.services.game_service:app --reload --port 8002   `
 
 **Start Web Client**
 --------------------
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   cd app/frontend  npm install  npm run dev   `
+`   cd app/frontend  npm install  npm run dev   `
 
 **Start CLI Client**
 --------------------
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   python -m app.cli.cli_client   `
+`   python -m app.cli.cli_client   `
 
 🎮 **6\. Gameplay Flow**
 ========================
@@ -233,5 +233,3 @@ Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQL
 *   ✔ Service-to-service REST calls
     
 *   ✔ CORS-enabled backend
-    
-*   ✔ Clean file structure
