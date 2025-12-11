@@ -1,203 +1,229 @@
-🎯 Mini Battleship – Distributed Two-Person Game System
+🎯 **Mini Battleship – Distributed Two-Person Game System**
+===========================================================
 
-A distributed Battleship game implemented using three microservices and two client platforms (CLI + Web).
-Supports real-time gameplay via WebSockets, service-to-service communication via HTTP REST, and a clean microservice architecture.
+A distributed Battleship game implemented using **three microservices** and **two client platforms (CLI + Web)**.Supports **real-time gameplay via WebSockets**, **service-to-service REST communication**, and a clean **microservice architecture**.
 
-🚀 1. Project Overview
+🚀 **1\. Project Overview**
+===========================
 
 This system allows two players to:
 
-Register/login using simple usernames
+*   Register/login using usernames
+    
+*   Create and join multiplayer rooms
+    
+*   Start a Battleship match
+    
+*   Play turn-based gameplay in real-time using WebSockets
+    
+*   See personal board + fog-of-war enemy board
+    
+*   Receive instant updates (hit, miss, sunk, winner)
+    
 
-Create and join multiplayer game rooms
+### **Includes:**
 
-Start a Battleship match between two players
+*   ✅ **3 backend microservices (Python + FastAPI)**
+    
+*   ✅ **CLI client (Python)**
+    
+*   ✅ **Web client (React + WebSocket)**
+    
 
-Play turns in real-time using WebSockets
+🧱 **2\. Architecture & Technologies**
+======================================
 
-See personal board + fog-of-war enemy board
+**Backend Microservices**
+-------------------------
 
-Receive instant updates for hits, misses, sunk ships, and winner
+ServicePurposeCommunication**User Service**Username registration & loginREST**Room Service**Create/join rooms, start gameREST**Game Rules Service**Battleship logic, turn control, WebSocket updatesREST + WebSocket
 
-The project includes:
+**Clients**
+-----------
 
-3 backend microservices (Python + FastAPI)
+ClientTechDescription**CLI Client**Python, aiohttpTerminal-based gameplay**Web Client**React (Vite), WebSocketVisual boards + real-time UI
 
-1 CLI client
+📡 **3\. API Documentation**
+============================
 
-1 Web client (React + WebSocket)
+**User Service**
+----------------
 
-🧱 2. Architecture & Technologies
-Backend Microservices (Python + FastAPI)
-Service	Purpose	Communication
-User Service	Username registration & login	REST
-Room Service	Create/join rooms, start games, calls Game Service	REST
-Game Rules Service	Battleship logic, turn system, hit/miss, WebSocket updates	REST + WebSocket
-Clients
-Client	Tech	Description
-CLI Client	Python, aiohttp	Text-based game interface
-Web Client	React (Vite), WebSocket	Visual boards + real-time gameplay
-📡 3. API Documentation
-## User Service (http://localhost:8001
-)
-POST /register
+> http://localhost:8001
 
-Registers a new username.
+### **POST /register**
 
-{ "username": "luke" }
+Register a username.
 
-POST /login
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   { "username": "luke" }   `
+
+### **POST /login**
 
 Login using username.
 
-{ "username": "luke" }
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   { "username": "luke" }   `
 
-GET /users
+### **GET /users**
 
-Returns all registered usernames.
+List all registered users.
 
-## Room Service (http://localhost:8003
-)
-POST /create_room
-{
-  "room_id": "01",
-  "host_player": "luke"
-}
+**Room Service**
+----------------
 
-POST /join_room
+> http://localhost:8003
 
-Second player joins room.
+### **POST /create\_room**
 
-GET /list_rooms
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   {    "room_id": "01",    "host_player": "luke"  }   `
 
-Shows all rooms with host/guest/status.
+### **POST /join\_room**
 
-POST /start_game/{room_id}?username=HOST
+Guest joins a room.
 
-Triggers game creation in the Game Service.
+### **GET /list\_rooms**
+
+Returns all rooms with host / guest / status.
+
+### **POST /start\_game/{room\_id}?username=HOST**
+
+Triggers game creation.
 
 Room Service → Game Service:
 
-POST http://localhost:8002/game/create
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   POST http://localhost:8002/game/create   `
 
-## Game Rules Service (http://localhost:8002
-)
-POST /game/create
+**Game Rules Service**
+----------------------
 
-Creates a Battleship match.
+> http://localhost:8002
 
-GET /list_games
+### **POST /game/create**
 
-Returns active games (used by CLI health-check).
+Create a Battleship match.
 
-## WebSocket API
+### **GET /list\_games**
 
-Used for all gameplay communication.
+Required for CLI service health-check.
 
-Connect:
-ws://localhost:8002/ws/{room_id}?player={username}
+🔌 **WebSocket API**
+====================
 
-Client → Server
-Make a move
-{
-  "action": "move",
-  "player_name": "luke",
-  "row": 3,
-  "col": 5,
-  "room_id": "01"
-}
+### **Connect:**
 
-Server → Client Events
-connected
-{
-  "event": "connected",
-  "game_id": "01",
-  "current_turn": "luke",
-  "boards": { "self": [...], "opponent": [...] }
-}
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   ws://localhost:8002/ws/{room_id}?player={username}   `
 
-game_created
+**Client → Server**
+-------------------
+
+### **Make a move**
+
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   {    "action": "move",    "player_name": "luke",    "row": 3,    "col": 5,    "room_id": "01"  }   `
+
+**Server → Client Events**
+--------------------------
+
+### **connected**
+
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   {    "event": "connected",    "game_id": "01",    "current_turn": "luke",    "boards": { "self": [...], "opponent": [...] }  }   `
+
+### **game\_created**
 
 Sent when game starts.
 
-move_made
-{
-  "event": "move_made",
-  "by": "luke",
-  "row": 3,
-  "col": 5,
-  "result": "hit",
-  "current_turn": "bob",
-  "winner": null,
-  "boards": { "self": [...], "opponent": [...] }
-}
+### **move\_made**
 
-winner
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   {    "event": "move_made",    "by": "luke",    "row": 3,    "col": 5,    "result": "hit",    "current_turn": "bob",    "winner": null,    "boards": { "self": [...], "opponent": [...] }  }   `
 
-winner field becomes the winning username.
+### **winner**
 
-🔗 4. Service-to-Service Communication
+Winner field appears when game ends.
 
-Room Service → Game Rules Service
+🔗 **4\. Service-to-Service Communication**
+===========================================
 
-POST http://localhost:8002/game/create
+Room Service → Game Rules Service:
 
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   POST http://localhost:8002/game/create   `
 
-This fulfills the requirement to demonstrate backend microservice communication.
+This satisfies the requirement for **microservice interaction via REST**.
 
-🕹 5. How to Run the Project
-Start Backend Services (3 terminals)
-Terminal 1 — User Service
-uvicorn app.user.user_service:app --reload --port 8001
+🕹 **5\. How to Run the Project**
+=================================
 
-Terminal 2 — Room Service
-uvicorn app.room.room_service:app --reload --port 8003
+**Start Backend Services (3 terminals)**
+----------------------------------------
 
-Terminal 3 — Game Rules Service
-uvicorn app.game.services.game_service:app --reload --port 8002
+### **Terminal 1 — User Service**
 
-Start Web Client
-cd app/frontend
-npm install
-npm run dev
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   uvicorn app.user.user_service:app --reload --port 8001   `
 
-Start CLI Client
-python -m app.cli.cli_client
+### **Terminal 2 — Room Service**
 
-🎮 6. Gameplay Flow
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   uvicorn app.room.room_service:app --reload --port 8003   `
 
-Users register/login
+### **Terminal 3 — Game Rules Service**
 
-Host creates a room
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   uvicorn app.game.services.game_service:app --reload --port 8002   `
 
-Guest joins the room
+**Start Web Client**
+--------------------
 
-Host starts game (Room Service → Game Service)
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   cd app/frontend  npm install  npm run dev   `
 
-Both players connect via WebSocket
+**Start CLI Client**
+--------------------
 
-Game Service sends each player:
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   python -m app.cli.cli_client   `
 
-Their own board
+🎮 **6\. Gameplay Flow**
+========================
 
-Fog-of-war enemy board
+1.  User registers/logs in
+    
+2.  Host creates room
+    
+3.  Guest joins room
+    
+4.  Host starts game
+    
+5.  Both players connect via WebSocket
+    
+6.  Game Service sends:
+    
+    *   Player’s own board
+        
+    *   Fog-of-war enemy board
+        
+7.  Turn-based shots
+    
+8.  Hit, miss, sunk ship logs
+    
+9.  Winner event broadcast
+    
+10.  Web client shows winner popup
+    
 
-Players shoot turn by turn
+🏁 **7\. Features Implemented**
+===============================
 
-Winner is broadcast to both clients
-
-Web client shows animated winner popup
-
-🏁 7. Features Implemented
-
-✔ 3 fully isolated microservices
-✔ Real-time WebSocket gameplay
-✔ CLI client
-✔ Web client with interactive grid
-✔ Turn-based game engine
-✔ Fog-of-war opponent board
-✔ Ship placement, hit/miss, sinking, win detection
-✔ Room creation + joining
-✔ Service-to-service HTTP communication
-✔ CORS configured for browser
-✔ Production-ready code structure
+*   ✔ Three isolated microservices
+    
+*   ✔ Real-time WebSocket gameplay
+    
+*   ✔ CLI client
+    
+*   ✔ Web client UI
+    
+*   ✔ Turn-based game engine
+    
+*   ✔ Fog-of-war enemy board
+    
+*   ✔ Automatic ship placement
+    
+*   ✔ Hit/miss/sunk/winner logic
+    
+*   ✔ Service-to-service REST calls
+    
+*   ✔ CORS-enabled backend
+    
+*   ✔ Clean file structure
