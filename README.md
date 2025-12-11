@@ -33,16 +33,24 @@ This system allows two players to:
 🧱 **2\. Architecture & Technologies**
 ======================================
 
-**Backend Microservices**
--------------------------
+### **Microservices (Python + FastAPI)**
 
-ServicePurposeCommunication**User Service**Username registration & loginREST**Room Service**Create/join rooms, start gameREST**Game Rules Service**Battleship logic, turn control, WebSocket updatesREST + WebSocket
+| Service | Description | Protocol |
+|--------|-------------|----------|
+| **User Service** | Username registration + login | REST |
+| **Room Service** | Room creation, join, start game | REST → Game Service |
+| **Game Rules Service** | Battleship engine, turn logic, live events | REST + WebSocket |
 
-**Clients**
------------
+---
 
-ClientTechDescription**CLI Client**Python, aiohttpTerminal-based gameplay**Web Client**React (Vite), WebSocketVisual boards + real-time UI
+### **Clients**
 
+| Client | Tech | Purpose |
+|--------|------|---------|
+| **CLI Client** | Python, aiohttp | Terminal gameplay |
+| **Web Client** | React + Vite + WebSocket | Visual game board |
+
+---
 📡 **3\. API Documentation**
 ============================
 
