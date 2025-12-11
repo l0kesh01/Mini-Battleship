@@ -1,0 +1,61 @@
+.board-wrapper {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.board-grid {
+  margin-top: 8px;
+}
+
+.board-placeholder {
+  padding: 12px;
+  border-radius: 6px;
+  background: #f0f0f0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.board-header-row,
+.board-row {
+  display: grid;
+  grid-template-columns: repeat(13, 24px);
+  gap: 2px;
+}
+
+.corner {
+  width: 24px;
+}
+
+.header-cell {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #555;
+}
+
+.cell {
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  padding: 0;
+}
+
+/* Colors you asked for */
+.cell-water {
+  background: #4aa3ff;
+}
+
+.cell-ship {
+  background: #3cc26b;
+}
+
+.cell-hit {
+  background: #ff3b3b;
+}
+
+.cell-miss {
+  background: #ffd93b;
+}
